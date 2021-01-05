@@ -1,25 +1,27 @@
-import { makeObservable, observable, toJS } from "mobx";
+import { action, computed, makeObservable, observable, toJS } from "mobx";
 import http from "../../../http-common";
 import Task from "./Task";
 
 export default class TasksStore {
   tasksList = observable.array([]);
+  filteredTasksList = observable.array([]);
 
   constructor(rootStore) {
     makeObservable(this, {
       tasksList: observable,
+      getTasksList: computed,
+      fetchTasks: action,
     });
     this.fetchTasks();
   }
 
   get getTasksList() {
-    return toJS(this.TasksList);
+    return toJS(this.tasksList);
   }
 
   async fetchTasks() {
     const { data } = await http.get("tasks");
 
-    this.TasksList = observable.array(data.map((task) => new Task(task)));
-    console.log(toJS(this.TasksList));
+    this.tasksList = observable.array(data.map((task) => new Task(task)));
   }
 }
