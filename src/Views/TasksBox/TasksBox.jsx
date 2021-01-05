@@ -1,25 +1,35 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
+import { useStore } from "../../Stores/Helpers/useStore";
 import "./TasksBox.css";
+import Task from "./Task";
 function TasksBox() {
+  const {
+    dataStore: { tasksStore },
+  } = useStore();
   return (
     <div id="tasks-box">
       tasks box
-      <table>
+      <table id="tasks-table">
         <thead>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
-          <th></th>
+          <tr>
+            <th>Title</th>
+            <th>Scheduled for</th>
+            <th>Assign to</th>
+            <th>Address</th>
+            <th>LAT</th>
+            <th>LON</th>
+            <th>Display</th>
+          </tr>
         </thead>
         <tbody>
-          <td></td>
+          {tasksStore.getTasksList.map((task) => (
+            <Task task={task} key={task._id} />
+          ))}
         </tbody>
       </table>
     </div>
   );
 }
 
-export default TasksBox;
+export default observer(TasksBox);
