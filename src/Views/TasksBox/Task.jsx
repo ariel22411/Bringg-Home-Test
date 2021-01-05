@@ -5,6 +5,7 @@ const Task = ({ task }) => {
   const {
     dataStore: { driversStore, tasksStore },
   } = useStore();
+
   return (
     <tr>
       <td>{task.title}</td>
@@ -28,8 +29,8 @@ const Task = ({ task }) => {
         </select>
       </td>
       <td>{task.address}</td>
-      <td>{task.lat}</td>
-      <td>{task.lon}</td>
+      <td>{task.location.lat}</td>
+      <td>{task.location.lon}</td>
       <td>
         <input type="checkbox" checked={task.display} />
       </td>
