@@ -23,7 +23,7 @@ function TasksBox() {
           </tr>
         </thead>
         <tbody>
-          {tasksStore.getTasksList.map((task) => (
+          {tasksStore.getFilteredTasksList.map((task) => (
             <Task task={task} key={task._id} />
           ))}
         </tbody>

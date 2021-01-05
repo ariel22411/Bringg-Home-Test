@@ -11,7 +11,7 @@ const SearchInput = () => {
   return (
     <div>
       <DebounceInput
-        minLength={2}
+        minLength={1}
         debounceTimeout={300}
         onChange={(event) =>
           driversStore.filterDriverByName(event.target.value)

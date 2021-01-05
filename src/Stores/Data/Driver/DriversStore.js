@@ -4,7 +4,7 @@ import Driver from "./Driver";
 export default class DriversStore {
   driversList = observable.array([]);
   filteredDriversList = observable.array([]);
-
+  rootStore;
   constructor(rootStore) {
     makeObservable(this, {
       driversList: observable,
@@ -13,20 +13,37 @@ export default class DriversStore {
       getDriversList: computed,
       fetchDrivers: action,
       filterDriverByName: action,
+      initFilteredArray: action,
     });
     this.fetchDrivers();
+    this.initFilteredArray();
+    this.rootStore = rootStore;
   }
+
   get getDriversList() {
     return toJS(this.driversList);
   }
+
   get getFilteredDriversList() {
     return toJS(this.filteredDriversList);
   }
 
   filterDriverByName(searchedName) {
-    this.filteredDriversList = this.driversList.filter((driver) =>
-      driver.name.toLowerCase().includes(searchedName.toLowerCase())
-    );
+    if (searchedName === "") {
+      this.initFilteredArray();
+      this.rootStore.dataStore.tasksStore.initFilteredArray();
+    } else {
+      this.filteredDriversList = this.driversList.filter((driver) =>
+        driver.name.toLowerCase().includes(searchedName.toLowerCase())
+      );
+      this.rootStore.dataStore.tasksStore.filterTasks(
+        this.filteredDriversList.map((item) => item._id)
+      );
+    }
+  }
+
+  initFilteredArray() {
+    this.filteredDriversList = this.driversList.slice(0);
   }
 
   async fetchDrivers() {
@@ -35,6 +52,6 @@ export default class DriversStore {
     this.driversList = observable.array(
       data.map((driver) => new Driver(driver))
     );
-    this.filteredDriversList = this.driversList.slice(0);
+    this.initFilteredArray();
   }
 }
