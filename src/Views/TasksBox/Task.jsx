@@ -7,15 +7,14 @@ const Task = ({ task }) => {
   } = useStore();
 
   const Checked = (e) => {
-    console.log(e.target.checked);
     if (e.target.checked) {
       let result = { _id: task._id, location: task.location };
       mapStore.addMarker("task", result);
+      tasksStore.updateDisplayCheckbox(task._id, true);
     } else {
-      console.log("try to delte");
       mapStore.deleteMarker(task.location);
+      tasksStore.updateDisplayCheckbox(task._id, false);
     }
-    tasksStore.updateDisplayCheckbox(task._id);
   };
 
   return (

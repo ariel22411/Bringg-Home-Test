@@ -23,7 +23,10 @@ const Map = () => {
       });
       mapStore.getMap.on("load", async () => {
         mapStore.addMarkers(driversStore.getFilteredDriversList, "driver");
-        mapStore.addMarkers(tasksStore.getFilteredTasksList, "task");
+        mapStore.addMarkers(
+          tasksStore.getFilteredTasksList.filter((task) => task.display),
+          "task"
+        );
       });
     };
 
@@ -34,9 +37,12 @@ const Map = () => {
     if (map) {
       mapStore.resetMarkerArray();
       mapStore.addMarkers(driversStore.getFilteredDriversList, "driver");
-      mapStore.addMarkers(tasksStore.getFilteredTasksList, "task");
+      mapStore.addMarkers(
+        tasksStore.getFilteredTasksList.filter((task) => task.display),
+        "task"
+      );
     }
-  }, [driversStore.filteredDriversList]);
+  }, [driversStore.filteredDriversList, tasksStore.getFilteredTasksList]);
 
   return (
     <div id="map" className="pd1">
