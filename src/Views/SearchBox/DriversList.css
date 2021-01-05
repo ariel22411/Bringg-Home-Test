@@ -1,0 +1,18 @@
+#drivers-list {
+  display: flex;
+  flex-direction: column;
+}
+.drivers-list-header {
+  background: chartreuse;
+  padding: 5px;
+}
+.drivers-list-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: overlay;
+  max-height: 300px;
+  height: 300px;
+  background: #3d3d3d;
+}
