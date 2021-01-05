@@ -10,18 +10,20 @@ export default class DriversStore {
       driversList: observable,
       filteredDriversList: observable,
       getFilteredDriversList: computed,
+      getDriversList: computed,
       fetchDrivers: action,
       filterDriverByName: action,
     });
     this.fetchDrivers();
   }
-
+  get getDriversList() {
+    return toJS(this.driversList);
+  }
   get getFilteredDriversList() {
     return toJS(this.filteredDriversList);
   }
 
   filterDriverByName(searchedName) {
-    console.log(toJS(this.driversList));
     this.filteredDriversList = this.driversList.filter((driver) =>
       driver.name.toLowerCase().includes(searchedName.toLowerCase())
     );

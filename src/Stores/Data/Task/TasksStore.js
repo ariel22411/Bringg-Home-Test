@@ -10,6 +10,7 @@ export default class TasksStore {
     makeObservable(this, {
       tasksList: observable,
       getTasksList: computed,
+      getFilteredTasksList: computed,
       fetchTasks: action,
     });
     this.fetchTasks();
@@ -19,9 +20,20 @@ export default class TasksStore {
     return toJS(this.tasksList);
   }
 
+  get getFilteredTasksList() {
+    return toJS(this.filteredTasksList);
+  }
+
   async fetchTasks() {
     const { data } = await http.get("tasks");
 
     this.tasksList = observable.array(data.map((task) => new Task(task)));
+  }
+
+  updateAssignedDriverIDToTask(taskID, driverID) {
+    const indexOfTask = this.tasksList.findIndex((task) => task._id === taskID);
+    if (indexOfTask !== -1) {
+      this.tasksList[indexOfTask].updateAssignedTo(driverID);
+    }
   }
 }
