@@ -1,22 +1,29 @@
 import React from "react";
-
-const DrivertItem = ({ name, img, age }, ...props) => {
+import Button from "../Common/Button";
+import "./DriverItem.css";
+const DriverItem = (
+  { driver: { name, img, age, tasksCount = "0" } },
+  ...props
+) => {
   return (
-    <div class="white-box">
-      <div className="div">
-        <div>
+    <div className="driver-item">
+      <div className="driver-details">
+        <div className="driver-img">
           <img src={img} alt={name} />
         </div>
-        <div>
-          <div>{name}</div>
-          <div>Age: {age}</div>
+        <div className="driver-info">
+          <span className="driver-name">{name}</span>
+          <span className="driver-small-text">Age: {age}</span>
         </div>
       </div>
-      <div className="div">
-        <div>tasks</div>
-        <div>buttons</div>
+      <div className="driver-actions">
+        <span className="driver-small-text">Tasks: {tasksCount}</span>
+        <div className="driver-buttons">
+          <Button name="location" />
+          <Button name="remove" />
+        </div>
       </div>
     </div>
   );
 };
-export default DrivertItem;
+export default DriverItem;
