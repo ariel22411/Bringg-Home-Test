@@ -1,10 +1,22 @@
 import React from "react";
+import { DebounceInput } from "react-debounce-input";
+import { useStore } from "../../Stores/Helpers/useStore";
 import "./SearchInput.css";
 
 const SearchInput = () => {
+  const {
+    dataStore: { driversStore },
+  } = useStore();
+
   return (
     <div>
-      <input type="text" placeholder="Search" />
+      <DebounceInput
+        minLength={2}
+        debounceTimeout={300}
+        onChange={(event) =>
+          driversStore.filterDriverByName(event.target.value)
+        }
+      />
     </div>
   );
 };
