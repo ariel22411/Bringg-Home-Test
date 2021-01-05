@@ -5,6 +5,7 @@ import { Marker } from "../../../Common/Marker";
 export default class MapStore {
   markers = observable.array([]);
   mapElement = null;
+  rootStore;
   constructor(rootStore) {
     makeObservable(this, {
       markers: observable,
@@ -17,6 +18,7 @@ export default class MapStore {
       setMapElement: action,
     });
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
+    this.rootStore = rootStore;
   }
   get getMap() {
     return toJS(this.mapElement);
@@ -40,7 +42,6 @@ export default class MapStore {
 
   addMarker(type, result) {
     const { _id, location } = result;
-    console.log({ _id, location });
     const markerNode = document.createElement("div");
     ReactDOM.render(<Marker id={_id} type={type} />, markerNode);
     this.markers = [

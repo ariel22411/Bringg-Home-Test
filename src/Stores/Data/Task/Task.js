@@ -24,7 +24,7 @@ export default class Task {
     this.assignedTo = driverID;
   }
 
-  toggleCheckbox() {
-    this.display = !this.display;
+  toggleCheckbox(bool) {
+    this.display = bool;
   }
 }

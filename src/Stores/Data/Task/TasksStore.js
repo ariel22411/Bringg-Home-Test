@@ -36,7 +36,6 @@ export default class TasksStore {
   }
 
   filterTasks(driversIDArray) {
-    console.log(driversIDArray);
     this.filteredTasksList = this.tasksList
       .filter((task) => driversIDArray.includes(task.assignedTo))
       .slice(0);
@@ -53,7 +52,9 @@ export default class TasksStore {
     this.initFilteredArray();
   }
 
-  updateDisplayCheckbox(taskID) {
-    this.tasksList.find((task) => task._id === taskID).toggleCheckbox();
+  updateDisplayCheckbox(taskID, bool) {
+    this.filteredTasksList
+      .find((task) => task._id === taskID)
+      .toggleCheckbox(bool);
   }
 }
