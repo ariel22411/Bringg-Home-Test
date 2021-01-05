@@ -3,8 +3,20 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../../Stores/Helpers/useStore";
 const Task = ({ task }) => {
   const {
-    dataStore: { driversStore, tasksStore },
+    dataStore: { driversStore, tasksStore, mapStore },
   } = useStore();
+
+  const Checked = (e) => {
+    console.log(e.target.checked);
+    if (e.target.checked) {
+      let result = { _id: task._id, location: task.location };
+      mapStore.addMarker("task", result);
+    } else {
+      console.log("try to delte");
+      mapStore.deleteMarker(task.location);
+    }
+    tasksStore.updateDisplayCheckbox(task._id);
+  };
 
   return (
     <tr>
@@ -30,9 +42,13 @@ const Task = ({ task }) => {
       </td>
       <td>{task.address}</td>
       <td>{task.location.lat}</td>
-      <td>{task.location.lon}</td>
+      <td>{task.location.lng}</td>
       <td>
-        <input type="checkbox" checked={task.display} />
+        <input
+          type="checkbox"
+          onChange={(e) => Checked(e)}
+          checked={task.display}
+        />
       </td>
     </tr>
   );

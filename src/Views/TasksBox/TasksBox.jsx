@@ -18,7 +18,7 @@ function TasksBox() {
             <th>Assign to</th>
             <th>Address</th>
             <th>LAT</th>
-            <th>LON</th>
+            <th>LNG</th>
             <th>Display</th>
           </tr>
         </thead>

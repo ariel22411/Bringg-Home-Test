@@ -1,7 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import mapboxgl from "mapbox-gl";
-import ReactDOM from "react-dom";
-import { Marker } from "../../Common/Marker";
+import React, { useState, useEffect, useRef, useLayoutEffect } from "react";
+import { observer } from "mobx-react-lite";
 import { useStore } from "../../Stores/Helpers/useStore";
 import "./Map.css";
 
@@ -13,41 +11,33 @@ const Map = () => {
   const [map, setMap] = useState(null);
   const mapContainer = useRef(null);
   const {
-    dataStore: { tasksStore, driversStore },
+    dataStore: { tasksStore, driversStore, mapStore },
   } = useStore();
   useEffect(() => {
-    mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
-
     const initializeMap = ({ setMap, mapContainer }) => {
-      const map = new mapboxgl.Map({
-        container: mapContainer.current,
-        style: "mapbox://styles/mapbox/streets-v11", // stylesheet location
-        center: [34.89635, 32.04898],
-        zoom: 12,
+      const map = mapStore.initMap(mapContainer);
+      mapStore.setMapElement(map);
+      mapStore.getMap.on("load", () => {
+        setMap(mapStore.getMap);
+        mapStore.getMap.resize();
       });
-
-      map.on("load", () => {
-        setMap(map);
-        map.resize();
-      });
-      map.on("load", async () => {
-        driversStore.getFilteredDriversList.forEach((result) => {
-          const { _id, location } = result;
-          const markerNode = document.createElement("div");
-          ReactDOM.render(<Marker id={_id} type={"driver"} />, markerNode);
-          new mapboxgl.Marker(markerNode).setLngLat(location).addTo(map);
-        });
-        tasksStore.getFilteredTasksList.forEach((result) => {
-          const { _id, location } = result;
-          const markerNode = document.createElement("div");
-          ReactDOM.render(<Marker id={_id} type={"task"} />, markerNode);
-          new mapboxgl.Marker(markerNode).setLngLat(location).addTo(map);
-        });
+      mapStore.getMap.on("load", async () => {
+        mapStore.addMarkers(driversStore.getFilteredDriversList, "driver");
+        mapStore.addMarkers(tasksStore.getFilteredTasksList, "task");
       });
     };
 
     if (!map) initializeMap({ setMap, mapContainer });
   }, [map]);
+
+  useEffect(() => {
+    if (map) {
+      mapStore.resetMarkerArray();
+      mapStore.addMarkers(driversStore.getFilteredDriversList, "driver");
+      mapStore.addMarkers(tasksStore.getFilteredTasksList, "task");
+    }
+  }, [driversStore.filteredDriversList]);
+
   return (
     <div id="map" className="pd1">
       <div ref={(el) => (mapContainer.current = el)} style={styles} />
@@ -55,4 +45,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default observer(Map);
