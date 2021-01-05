@@ -16,6 +16,7 @@ export default class TasksStore {
       getFilteredTasksList: computed,
       fetchTasks: action,
       updateAssignedDriverIDToTask: action,
+      updateDisplayCheckbox: action,
     });
     this.fetchTasks();
   }
@@ -50,5 +51,9 @@ export default class TasksStore {
       this.tasksList[indexOfTask].updateAssignedTo(driverID);
     }
     this.initFilteredArray();
+  }
+
+  updateDisplayCheckbox(taskID) {
+    this.tasksList.find((task) => task._id === taskID).toggleCheckbox();
   }
 }
