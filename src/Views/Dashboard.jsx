@@ -10,7 +10,7 @@ const Dashboard = () => {
         <SearchBox />
         <Map />
       </div>
-      <div className="bottom">
+      <div className="bottom pd1">
         <TasksBox />
       </div>
     </div>

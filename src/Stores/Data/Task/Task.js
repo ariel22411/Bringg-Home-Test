@@ -6,6 +6,7 @@ export default class Task {
   location;
   assignedTo = 0;
   display = true;
+  address;
 
   constructor(task) {
     makeObservable(this, {
@@ -18,6 +19,7 @@ export default class Task {
     this.title = task.title;
     this.scheduledFor = task.scheduledFor;
     this.location = task.location;
+    this.address = task.address;
   }
 
   updateAssignedTo(driverID) {

@@ -12,9 +12,15 @@ const DriversList = () => {
     <div id="drivers-list">
       <div className="drivers-list-header header-bg">Drivers List</div>
       <div className="drivers-list-body box-bg">
-        {driversStore.getFilteredDriversList.map((driver) => (
-          <DriverItem driver={driver} key={driver._id} />
-        ))}
+        {driversStore.getFilteredDriversList.length > 0 ? (
+          driversStore.getFilteredDriversList.map((driver) => (
+            <DriverItem driver={driver} key={driver._id} />
+          ))
+        ) : (
+          <div className="no-result">
+            <p>No result</p>
+          </div>
+        )}
       </div>
     </div>
   );
