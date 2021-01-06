@@ -3,12 +3,11 @@ import Button from "../Common/Button";
 import { useStore } from "../Stores/Helpers/useStore";
 import "./DriverItem.css";
 const DriverItem = (
-  { driver: { name, img, age, tasksCount = "0", location } },
+  { driver: { name, img, age, tasksCount = "0", location, _id } },
   ...props
 ) => {
-  console.log(location);
   const {
-    dataStore: { mapStore },
+    dataStore: { driversStore, mapStore },
   } = useStore();
   return (
     <div className="driver-item">
@@ -30,7 +29,10 @@ const DriverItem = (
               mapStore.flyTo(location);
             }}
           />
-          <Button name="remove" />
+          <Button
+            name="remove"
+            onClick={() => driversStore.removeDriverFromList(_id)}
+          />
         </div>
       </div>
     </div>
