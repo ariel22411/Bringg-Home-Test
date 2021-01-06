@@ -8,7 +8,7 @@ function TasksBox() {
     dataStore: { tasksStore },
   } = useStore();
   return (
-    <div id="tasks-box">
+    <div id="tasks-box" className="box-bg">
       <table id="tasks-table">
         <thead className="header-bg">
           <tr>
@@ -22,9 +22,15 @@ function TasksBox() {
           </tr>
         </thead>
         <tbody className="box-bg">
-          {tasksStore.getFilteredTasksList.map((task) => (
-            <Task task={task} key={task._id} />
-          ))}
+          {tasksStore.getFilteredTasksList.length > 0 ? (
+            tasksStore.getFilteredTasksList.map((task) => (
+              <Task task={task} key={task._id} />
+            ))
+          ) : (
+            <tr>
+              <td colSpan="8">No result</td>
+            </tr>
+          )}
         </tbody>
       </table>
     </div>

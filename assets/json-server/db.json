@@ -79,7 +79,8 @@
             "location": {
                 "lat": 32.053532,
                 "lng": 34.85659
-            }
+            },
+            "address": "דואר קראון, שלמה המלך 6, קרית אונו, Kiryat Ono, Tel Aviv District, Israel"
         },
         {
             "_id": "5ff482a85838f6fb167b2cd5",
@@ -88,7 +89,8 @@
             "location": {
                 "lat": 32.065661,
                 "lng": 34.78114
-            }
+            },
+            "address": "אולם אריסון, סעדיה גאון 7, Tel Aviv-Yafo, Tel Aviv District, Israel"
         },
         {
             "_id": "5ff482a84a50300b57011ba6",
@@ -97,7 +99,8 @@
             "location": {
                 "lat": 32.085074,
                 "lng": 34.96501
-            }
+            },
+            "address": "שופרסל ראש העין, Rosh HaAyin, Central District, Israel"
         },
         {
             "_id": "5ff482a8332dda0bf46fa17c",
@@ -106,7 +109,8 @@
             "location": {
                 "lat": 32.086324,
                 "lng": 34.8208
-            }
+            },
+            "address": "Shalishut - שלישות, Ramat Gan, Tel Aviv District, Israel"
         },
         {
             "_id": "5ff482a8eb67fb3f0894029d",
@@ -115,7 +119,8 @@
             "location": {
                 "lat": 32.05287,
                 "lng": 34.96038
-            }
+            },
+            "address": "Elad, Central District, Israel"
         },
         {
             "_id": "5ff482a8289d28278244d083",
@@ -124,7 +129,8 @@
             "location": {
                 "lat": 32.077629,
                 "lng": 34.82172
-            }
+            },
+            "address": "הר הבנים, Ramat Gan, Tel Aviv District, Israel",
         },
         {
             "_id": "5ff482a8700ba11149faa4cd",
@@ -133,7 +139,8 @@
             "location": {
                 "lat": 32.069511,
                 "lng": 34.92021
-            }
+            },
+            "address": "מכבי פארם מנחם בגין, מנחם בגין 94, Central District, Israel"
         }
     ]
 }
