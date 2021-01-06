@@ -9,9 +9,8 @@ function TasksBox() {
   } = useStore();
   return (
     <div id="tasks-box">
-      tasks box
       <table id="tasks-table">
-        <thead>
+        <thead className="header-bg">
           <tr>
             <th>Title</th>
             <th>Scheduled for</th>
@@ -22,7 +21,7 @@ function TasksBox() {
             <th>Display</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="box-bg">
           {tasksStore.getFilteredTasksList.map((task) => (
             <Task task={task} key={task._id} />
           ))}

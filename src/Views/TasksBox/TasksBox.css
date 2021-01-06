@@ -1,8 +1,8 @@
 #tasks-box {
-  background-color: cornflowerblue;
   flex: 1;
 }
 #tasks-table {
   width: 100%;
   text-align: center;
+  border-spacing: 0px;
 }
