@@ -37,7 +37,8 @@ export default class DriversStore {
         driver.name.toLowerCase().includes(searchedName.toLowerCase())
       );
       this.rootStore.dataStore.tasksStore.filterTasks(
-        this.filteredDriversList.map((item) => item._id)
+        this.filteredDriversList.map((item) => item._id),
+        searchedName
       );
     }
   }

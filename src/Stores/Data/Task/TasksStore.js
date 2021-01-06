@@ -35,9 +35,13 @@ export default class TasksStore {
     this.initFilteredArray();
   }
 
-  filterTasks(driversIDArray) {
+  filterTasks(driversIDArray, searchedName) {
     this.filteredTasksList = this.tasksList
-      .filter((task) => driversIDArray.includes(task.assignedTo))
+      .filter(
+        (task) =>
+          driversIDArray.includes(task.assignedTo) ||
+          task.title.includes(searchedName.toLowerCase())
+      )
       .slice(0);
   }
 
