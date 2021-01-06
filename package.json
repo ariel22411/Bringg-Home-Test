@@ -10,6 +10,7 @@
     "mapbox-gl": "^2.0.1",
     "mobx": "^6.0.4",
     "mobx-react-lite": "^3.1.6",
+    "moment": "^2.29.1",
     "react": "^17.0.1",
     "react-debounce-input": "^3.2.3",
     "react-dom": "^17.0.1",
