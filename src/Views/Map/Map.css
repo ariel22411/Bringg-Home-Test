@@ -1,0 +1,17 @@
+#map {
+  flex: 2;
+}
+
+.marker {
+  background-size: cover;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+.marker-driver {
+  background-image: url("https://www.tattnall.org/wp-content/uploads/2018/03/drivers-ed.png");
+}
+.marker-task {
+  background-image: url("https://img.icons8.com/color/48/000000/marker.png");
+}

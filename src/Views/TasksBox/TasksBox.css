@@ -1,0 +1,9 @@
+#tasks-box {
+  flex: 1;
+  min-height: 200px;
+}
+#tasks-table {
+  width: 100%;
+  text-align: center;
+  border-spacing: 0px;
+}

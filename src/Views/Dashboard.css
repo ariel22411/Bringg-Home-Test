@@ -1,0 +1,16 @@
+#dashboard {
+  background: #fff;
+  flex: 1;
+  width: 90%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  padding: 2em;
+}
+.top {
+  display: flex;
+  flex-direction: row;
+}
+.bottom {
+  display: flex;
+}
