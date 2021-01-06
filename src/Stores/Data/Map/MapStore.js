@@ -16,6 +16,7 @@ export default class MapStore {
       initMap: action,
       resetMarkerArray: action,
       setMapElement: action,
+      flyTo: action,
     });
     mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_KEY;
     this.rootStore = rootStore;
@@ -62,5 +63,13 @@ export default class MapStore {
     );
     mark.remove();
     this.markers.splice(this.markers.indexOf(mark), 1);
+  }
+
+  flyTo(location) {
+    console.log(location);
+    this.mapElement.flyTo({
+      center: [location.lng, location.lat],
+      essential: true,
+    });
   }
 }
