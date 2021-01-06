@@ -14,6 +14,9 @@ export default class DriversStore {
       fetchDrivers: action,
       filterDriverByName: action,
       initFilteredArray: action,
+      removeDriverFromList: action,
+      increaseTaskCountForDriver: action,
+      decreaseTaskCountForDriver: action,
     });
     this.fetchDrivers();
     this.initFilteredArray();
@@ -54,5 +57,25 @@ export default class DriversStore {
       data.map((driver) => new Driver(driver))
     );
     this.initFilteredArray();
+  }
+
+  removeDriverFromList(driverID) {
+    this.rootStore.dataStore.tasksStore.removeDriverFromTasks(driverID);
+    const futureRemovedDriver = this.driversList.findIndex(
+      (driver) => driver._id === driverID
+    );
+    this.driversList.splice(futureRemovedDriver, 1);
+    this.filteredDriversList.splice(futureRemovedDriver, 1);
+  }
+
+  increaseTaskCountForDriver(driverID) {
+    this.driversList
+      .find((driver) => driver._id === driverID)
+      .increaseTasksCount();
+  }
+  decreaseTaskCountForDriver(driverID) {
+    this.driversList
+      .find((driver) => driver._id === driverID)
+      .decreaseTasksCount();
   }
 }

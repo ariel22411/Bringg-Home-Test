@@ -6,7 +6,7 @@ export default class TasksStore {
   tasksList = observable.array([]);
   filteredTasksList = observable.array([]);
   test = observable.array([]);
-
+  rootStore;
   constructor(rootStore) {
     makeObservable(this, {
       tasksList: observable,
@@ -19,6 +19,7 @@ export default class TasksStore {
       updateDisplayCheckbox: action,
     });
     this.fetchTasks();
+    this.rootStore = rootStore;
   }
 
   get getTasksList() {
@@ -36,13 +37,12 @@ export default class TasksStore {
   }
 
   filterTasks(driversIDArray, searchedName) {
-    this.filteredTasksList = this.tasksList
-      .filter(
-        (task) =>
-          driversIDArray.includes(task.assignedTo) ||
-          task.title.includes(searchedName.toLowerCase())
-      )
-      .slice(0);
+    const lowerCaseSearchedName = searchedName.toLowerCase();
+    this.filteredTasksList = this.tasksList.filter(
+      (task) =>
+        driversIDArray.includes(task.assignedTo) ||
+        task.title.toLowerCase().includes(lowerCaseSearchedName)
+    );
   }
 
   initFilteredArray() {
@@ -50,15 +50,31 @@ export default class TasksStore {
   }
   updateAssignedDriverIDToTask(taskID, driverID) {
     const indexOfTask = this.tasksList.findIndex((task) => task._id === taskID);
-    if (indexOfTask !== -1) {
-      this.tasksList[indexOfTask].updateAssignedTo(driverID);
+    if (indexOfTask === -1) {
+      return;
     }
-    this.initFilteredArray();
+    const task = this.tasksList[indexOfTask];
+    if (task.assignedTo)
+      this.rootStore.dataStore.driversStore.decreaseTaskCountForDriver(
+        task.assignedTo
+      );
+
+    task.updateAssignedTo(driverID === "0" ? 0 : driverID);
+    if (task.assignedTo) {
+      this.rootStore.dataStore.driversStore.increaseTaskCountForDriver(
+        task.assignedTo
+      );
+    }
   }
 
   updateDisplayCheckbox(taskID, bool) {
-    this.filteredTasksList
-      .find((task) => task._id === taskID)
-      .toggleCheckbox(bool);
+    this.tasksList.find((task) => task._id === taskID).toggleCheckbox(bool);
+  }
+  removeDriverFromTasks(driverID) {
+    this.tasksList.forEach((task) => {
+      if (task.assignedTo === driverID) {
+        task.assignedTo = 0;
+      }
+    });
   }
 }

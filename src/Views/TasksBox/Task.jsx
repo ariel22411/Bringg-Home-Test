@@ -6,15 +6,15 @@ const Task = ({ task }) => {
     dataStore: { driversStore, tasksStore, mapStore },
   } = useStore();
 
-  const Checked = (e) => {
+  const toggleDisplayHandler = (e) => {
     if (e.target.checked) {
       let result = { _id: task._id, location: task.location };
       mapStore.addMarker("task", result);
-      tasksStore.updateDisplayCheckbox(task._id, true);
     } else {
       mapStore.deleteMarker(task.location);
-      tasksStore.updateDisplayCheckbox(task._id, false);
     }
+
+    tasksStore.updateDisplayCheckbox(task._id, e.target.checked);
   };
 
   return (
@@ -31,7 +31,7 @@ const Task = ({ task }) => {
             )
           }
         >
-          <option value="0">Please select</option>
+          <option value={0}>Please select</option>
           {driversStore.getDriversList.map((driver) => (
             <option value={driver._id} key={driver._id}>
               {driver.name}
@@ -45,7 +45,7 @@ const Task = ({ task }) => {
       <td>
         <input
           type="checkbox"
-          onChange={(e) => Checked(e)}
+          onChange={(e) => toggleDisplayHandler(e)}
           checked={task.display}
         />
       </td>

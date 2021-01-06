@@ -42,7 +42,7 @@ const Map = () => {
         "task"
       );
     }
-  }, [driversStore.filteredDriversList, tasksStore.getFilteredTasksList]);
+  }, [driversStore.getFilteredDriversList, tasksStore.getFilteredTasksList]);
 
   return (
     <div id="map" className="pd1">
