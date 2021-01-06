@@ -1,6 +1,7 @@
 import React from "react";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../../Stores/Helpers/useStore";
+import * as moment from "moment";
 const Task = ({ task }) => {
   const {
     dataStore: { driversStore, tasksStore, mapStore },
@@ -20,7 +21,11 @@ const Task = ({ task }) => {
   return (
     <tr>
       <td>{task.title}</td>
-      <td>{task.scheduledFor}</td>
+      <td>
+        {moment(task.scheduledFor, "YYYY-MM-DDTHH:mm:ssZ").format(
+          "HH:mm:ss D/M/YY"
+        )}
+      </td>
       <td>
         <select
           value={task.assignedTo ? task.assignedTo : 0}
