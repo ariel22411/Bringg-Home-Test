@@ -1,10 +1,15 @@
 import React from "react";
 import Button from "../Common/Button";
+import { useStore } from "../Stores/Helpers/useStore";
 import "./DriverItem.css";
 const DriverItem = (
-  { driver: { name, img, age, tasksCount = "0" } },
+  { driver: { name, img, age, tasksCount = "0", location } },
   ...props
 ) => {
+  console.log(location);
+  const {
+    dataStore: { mapStore },
+  } = useStore();
   return (
     <div className="driver-item">
       <div className="driver-details">
@@ -19,7 +24,12 @@ const DriverItem = (
       <div className="driver-actions">
         <span className="driver-small-text">Tasks: {tasksCount}</span>
         <div className="driver-buttons">
-          <Button name="location" />
+          <Button
+            name="location"
+            onClick={() => {
+              mapStore.flyTo(location);
+            }}
+          />
           <Button name="remove" />
         </div>
       </div>
