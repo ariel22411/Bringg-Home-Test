@@ -10,8 +10,8 @@ const DriversList = () => {
 
   return (
     <div id="drivers-list">
-      <div className="drivers-list-header">Drivers List</div>
-      <div className="drivers-list-body">
+      <div className="drivers-list-header header-bg">Drivers List</div>
+      <div className="drivers-list-body box-bg">
         {driversStore.getFilteredDriversList.map((driver) => (
           <DriverItem driver={driver} key={driver._id} />
         ))}
