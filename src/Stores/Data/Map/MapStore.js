@@ -66,10 +66,12 @@ export default class MapStore {
   }
 
   flyTo(location) {
-    console.log(location);
     this.mapElement.flyTo({
       center: [location.lng, location.lat],
       essential: true,
+      zoom: 13,
+      speed: 0.2,
+      curve: 1,
     });
   }
 }
